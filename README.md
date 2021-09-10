@@ -1,4 +1,4 @@
-# ![Erin](imgs/erin-64x64.png) Erin
+# ![Erin](imgs/erin_bot.ico) Erin
 A Python Telegram bot to help with shared household errands and chores.
 
 Built with [FastAPI](https://fastapi.tiangolo.com/) and [python-telegram-bot](https://python-telegram-bot.org/).
