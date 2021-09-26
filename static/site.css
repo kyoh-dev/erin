@@ -1,0 +1,39 @@
+body {
+    background-color: #F8F8F8;
+}
+
+h1 {
+    font-size: 1.8em;
+    padding: .6em 0 .2em;
+}
+
+p {
+    margin: .6em 0;
+}
+
+table {
+    width: 100%;
+    margin: .6em 0;
+}
+
+td, th {
+    padding: .5em 2.4em .5em .6em;
+}
+
+.primary thead th {
+    background-color: #4D908E;
+}
+
+nav.top-nav {
+    padding: 1.6em 0;
+    height: 3.4em;
+    font-size: 1.2em;
+}
+
+nav .logo {
+    height: 2.2em;
+}
+
+.site-body {
+    margin: 3.7em 2em;
+}

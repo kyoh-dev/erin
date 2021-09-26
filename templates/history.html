@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/static/favicon.png"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link rel="stylesheet" href="{{ url_for('static', path='/site.css') }}">
+    <title>History - ErinBot</title>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="/" class="brand">
+            <img class="logo" src="/static/erin_idle.gif" />
+            <span>ErinBot</span>
+        </a>
+    </nav>
+    <div class="site-body">
+        <h1>History</h1>
+        <table class="primary">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Task</th>
+                <th>Assignee</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{task['due_date']}}</td>
+                    <td>{{task['description']}}</td>
+                    <td>{{task['assignee']}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

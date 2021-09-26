@@ -6,15 +6,15 @@ from core.constants import API_KEY
 from api.utils import task_response_template
 
 REQ_HEADERS = {
-    "content-type": "application/json",
-    "x-apikey": API_KEY,
-    "cache-control": "no-cache",
+    'content-type': 'application/json',
+    'x-apikey': API_KEY,
+    'cache-control': 'no-cache',
 }
 router = APIRouter()
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory='templates')
 
 
-@router.get("/", response_class=HTMLResponse)
+@router.get('/', response_class=HTMLResponse)
 def get_upcoming_tasks(api_request: Request):
     query = '/tasks?q={"due_date":{"$gte":{"$date":"$today"}}}'
     fields = '&h={"$fields": {"description": 1, "assignee": 1, "due_date": 1}}'
@@ -23,10 +23,15 @@ def get_upcoming_tasks(api_request: Request):
     return page
 
 
-@router.get("/history", response_class=HTMLResponse)
+@router.get('/history', response_class=HTMLResponse)
 def get_all_tasks(api_request: Request):
-    query = "/tasks"
-    fields = '&h={"$fields": {"description": 1, "assignee": 1, "due_date": 1}}'
+    query = '/tasks'
+    fields = '?h={"$fields": {"description": 1, "assignee": 1, "due_date": 1}}'
     page = task_response_template(api_request, query, fields, REQ_HEADERS, 'history.html')
 
     return page
+
+
+@router.post('/tasks/new')
+def add_new_task(api_request: Request):
+    pass
