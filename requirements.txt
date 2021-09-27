@@ -3,7 +3,6 @@ APScheduler==3.6.3
 asgiref==3.4.1
 backports.zoneinfo==0.2.1
 black==21.8b0
-botocore==1.21.47
 cachetools==4.2.2
 certifi==2021.5.30
 charset-normalizer==2.0.6
@@ -15,7 +14,6 @@ Jinja2==3.0.1
 jmespath==0.10.0
 MarkupSafe==2.0.1
 mypy-extensions==0.4.3
-orjson==3.6.3
 pathspec==0.9.0
 platformdirs==2.3.0
 pydantic==1.8.2

@@ -5,10 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/static/favicon.png"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-    <link rel="stylesheet" href="{{ url_for('static', path='/site.css') }}">
-    <title>Error - ErinBot</title>
+    <link rel="stylesheet" href="/static/site.css">
+    <title>History - ErinBot</title>
 </head>
 <body>
-    <h1>There was an error processing your request.</h1>
+    <nav class="top-nav">
+        <a href="/" class="brand">
+            <img class="logo" src="/static/erin_idle.gif" />
+            <span>ErinBot</span>
+        </a>
+        <!-- responsive-->
+        <input id="bmenub" type="checkbox" class="show">
+        <label for="bmenub" class="burger pseudo button">&#9776;</label>
+
+        <div class="menu">
+            <a href="/history" class="button btn-primary btn-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-history" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <polyline points="12 8 12 12 14 14" />
+                    <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
+                </svg>
+                <span class="btn-icon-txt">Error</span>
+            </a>
+        </div>
+    </nav>
+    <div class="site-body">
+        <h3>There was an error processing your request. Please try it again.</h3>
+    </div>
 </body>
 </html>

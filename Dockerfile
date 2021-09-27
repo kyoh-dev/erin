@@ -3,8 +3,10 @@ FROM python:3.9
 ENV PYTHONBUFFERED True
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir pip -r requirements.txt
+COPY requirements.lock.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir pip -r /tmp/requirements.txt
 
 COPY . .
-CMD [ "uvicorn", "main:app" ]
+
+EXPOSE 8080
+CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080" ]

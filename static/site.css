@@ -40,14 +40,13 @@ td, th {
 }
 
 nav.top-nav {
-    padding: 1.6em 0;
+    padding: 2.1em .2em;
     height: 4em;
     -webkit-box-shadow: 3px 3px 4px 2px rgba(0,0,0,0.06);
     box-shadow: 3px 3px 4px 2px rgba(0,0,0,0.06);
 }
 
 .brand {
-    margin-left: .5em;
     font-size: 1.3em;
 }
 
@@ -56,5 +55,5 @@ nav .logo {
 }
 
 .site-body {
-    margin: 4em 2em;
+    margin: 4em 1.2em;
 }

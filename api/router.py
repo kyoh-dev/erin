@@ -30,8 +30,3 @@ def get_all_tasks(api_request: Request):
     page = task_response_template(api_request, query, fields, REQ_HEADERS, 'history.html')
 
     return page
-
-
-@router.post('/tasks/new')
-def add_new_task(api_request: Request):
-    pass
