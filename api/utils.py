@@ -8,7 +8,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 def clean_date_string(date_string: str) -> str:
-    return date_string.split('T', 1)[0]
+    return date_string.split("T", 1)[0]
 
 
 def task_response_template(
@@ -30,7 +30,7 @@ def task_response_template(
     record_list = response.json()
 
     for record in record_list:
-        record['due_date'] = clean_date_string(record['due_date'])
+        record["due_date"] = clean_date_string(record["due_date"])
 
     if not response:
         return templates.TemplateResponse(
