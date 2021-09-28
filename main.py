@@ -23,6 +23,7 @@ async def validate_client_ip(
     api_request: Request, call_next: Callable
 ) -> Union[JSONResponse, Callable]:
     client_ip = str(api_request.client.host)
+
     if client_ip != ALLOWED_IP:
         response_data = {"response": f"HTTP {status.HTTP_401_UNAUTHORIZED}: Unauthorised IP address used."}
         return JSONResponse(

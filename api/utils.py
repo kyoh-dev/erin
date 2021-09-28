@@ -25,7 +25,6 @@ def task_response_template(
     :return: A FastAPI TemplateResponse with the requested Jinja template and response data.
     """
     response = get(url=f"{DB_BASE_URL}{query}{fields}", headers=request_headers)
-    response.raise_for_status()
 
     record_list = response.json()
 
