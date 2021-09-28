@@ -15,13 +15,13 @@ def task_response_template(
     api_request: Request, query: str, fields: str, request_headers: dict, template: str
 ) -> templates.TemplateResponse:
     """
-    Takes an API request with parameters and returns the template with the response data.
+    Takes an API request for tasks with parameters and returns the template with the response data.
 
     :param api_request: The FastAPI Request object.
     :param query: Database API request query.
     :param fields: Database API field list.
     :param request_headers: Database API request headers.
-    :param template: Jinja template to return
+    :param template: Jinja task template to return.
     :return: A FastAPI TemplateResponse with the requested Jinja template and response data.
     """
     response = get(url=f"{DB_BASE_URL}{query}{fields}", headers=request_headers)
