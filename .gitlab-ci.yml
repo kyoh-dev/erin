@@ -4,6 +4,8 @@ stages:
 deploy-job:
   stage: deploy
   image: python:3.9
+  variables:
+    FLY_API_TOKEN: $FLY_API_TOKEN
   before_script:
     - apt-get update -qq && apt-get install -y curl
     - curl -L https://fly.io/install.sh | sh
