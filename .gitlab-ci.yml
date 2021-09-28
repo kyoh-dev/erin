@@ -6,7 +6,6 @@ deploy-job:
   image: python:3.9
   variables:
     FLY_ACCESS_TOKEN: $FLY_ACCESS_TOKEN
-    FLY_APP: $FLY_APP
   before_script:
     - apt-get update -qq && apt-get install -y curl
     - curl -L https://fly.io/install.sh | sh
