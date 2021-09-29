@@ -12,12 +12,12 @@ def clean_date_string(date_string: str) -> str:
 
 
 def task_response_template(
-    api_request: Request, query: str, fields: str, request_headers: dict, template: str
+    request: Request, query: str, fields: str, request_headers: dict, template: str
 ) -> templates.TemplateResponse:
     """
     Takes an API request for tasks with parameters and returns the template with the response data.
 
-    :param api_request: The FastAPI Request object.
+    :param request: The FastAPI Request object.
     :param query: Database API request query.
     :param fields: Database API field list.
     :param request_headers: Database API request headers.
@@ -33,9 +33,9 @@ def task_response_template(
 
     if not response:
         return templates.TemplateResponse(
-            "error.html", {"request": api_request, "error_code": response.status_code}
+            "error.html", {"request": request, "error_code": response.status_code}
         )
 
     return templates.TemplateResponse(
-        template, {"request": api_request, "tasks": record_list}
+        template, {"request": request, "tasks": record_list}
     )
