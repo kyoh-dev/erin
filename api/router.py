@@ -34,3 +34,13 @@ async def get_history(request: Request) -> Jinja2Templates.TemplateResponse:
     )
 
     return page
+
+
+@router.get("/login", response_class=HTMLResponse)
+async def get_login(request: Request) -> Jinja2Templates.TemplateResponse:
+    ...
+
+
+@router.get("/auth", response_class=HTMLResponse)
+async def authorise_request(request: Request):
+    ...
