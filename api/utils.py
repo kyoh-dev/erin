@@ -1,41 +1,27 @@
+from typing import List, Dict, Union
 from requests import get
-from fastapi import Request
-from fastapi.templating import Jinja2Templates
+from passlib.context import CryptContext
 
-from core.constants import DB_BASE_URL
+from core.constants import DB_BASE_URL, APP_PWD
 
-templates = Jinja2Templates(directory="templates")
+pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 def clean_date_string(date_string: str) -> str:
     return date_string.split("T", 1)[0]
 
 
-def task_response_template(
-    request: Request, query: str, fields: str, request_headers: dict, template: str
-) -> templates.TemplateResponse:
-    """
-    Takes an API request for tasks with parameters and returns the template with the response data.
+def verify_password(input_pwd: str, hashed_pwd: str = APP_PWD) -> bool:
+    return pwd_context.verify(input_pwd, hashed_pwd)
 
-    :param request: The FastAPI Request object.
-    :param query: Database API request query.
-    :param fields: Database API field list.
-    :param request_headers: Database API request headers.
-    :param template: Jinja task template to return.
-    :return: A FastAPI TemplateResponse with the requested Jinja template and response data.
-    """
+
+def get_tasks(query: str, fields: str, request_headers: dict) -> Union[List[Dict[str, str]], int]:
     response = get(url=f"{DB_BASE_URL}{query}{fields}", headers=request_headers)
-
     if not response.ok:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_code": response.status_code}
-        )
+        return response.status_code
 
     record_list = response.json()
-
     for record in record_list:
         record["due_date"] = clean_date_string(record["due_date"])
 
-    return templates.TemplateResponse(
-        template, {"request": request, "tasks": record_list}
-    )
+    return record_list

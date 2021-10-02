@@ -1,4 +1,4 @@
-# ![Erin](static/erin_bot_64x64.png) Erin
-A Telegram bot and dashboard to help with shared household errands and chores.
+# ![ErinBot](static/erin_bot_64x64.png) ErinBot
+A Telegram bot and dashboard to help housemates manage shared errands and chores.
 
-Written in Python and built with [FastAPI](https://fastapi.tiangolo.com/) and [python-telegram-bot](https://python-telegram-bot.org/).
+Written in Python and built with [Starlette](https://www.starlette.io/) and [python-telegram-bot](https://python-telegram-bot.org/).

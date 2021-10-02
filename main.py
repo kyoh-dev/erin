@@ -1,17 +1,22 @@
-from fastapi import FastAPI
-from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.staticfiles import StaticFiles
+from starlette.applications import Starlette
+from starlette.middleware import Middleware
+from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
+from starlette.routing import Route, Mount
+from starlette.staticfiles import StaticFiles
 
-from api.router import router as api_router
+from api.routes import home, history, login
 
-app = FastAPI(title="ErinBot", docs_url="/api/docs", redoc_url=None)
+routes = [
+    Route('/', endpoint=home),
+    Route('/history', endpoint=history),
+    Route('/login', endpoint=login),
+    Mount('/static', StaticFiles(directory='static'), name='static')
+]
 
-app.add_middleware(
-    TrustedHostMiddleware,
-    allowed_hosts=["*.kyoh.run", "erin.floral-wildflower-6316.fly.dev"],
-)
-app.add_middleware(HTTPSRedirectMiddleware)
+middleware = [
+    Middleware(TrustedHostMiddleware, allowed_hosts=["*.kyoh.run", "erin.floral-wildflower-6316.fly.dev"]),
+    Middleware(HTTPSRedirectMiddleware)
+]
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-app.include_router(api_router)
+app = Starlette(debug=True, routes=routes)

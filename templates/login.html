@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="/static/favicon.png"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-    <link rel="stylesheet" href="/static/site.css">
-    <title>Login - ErinBot</title>
-</head>
-<body>
-    <nav class="top-nav">
-        <a href="/" class="brand">
-            <img class="logo" src="/static/erin_idle.gif" />
-            <span>ErinBot</span>
-        </a>
-    </nav>
-    <div class="site-body">
-        <h1>Login</h1>
-        <a href="/login">Log in</a>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+    {% block title %}Login{% endblock %}
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+{% block content %}
+
+{% endblock %}

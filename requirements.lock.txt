@@ -1,6 +1,0 @@
-aiofiles==0.7.0
-fastapi==0.68.1
-Jinja2==3.0.1
-python-telegram-bot==13.7
-requests==2.26.0
-uvicorn==0.15.0
