@@ -26,15 +26,15 @@ def task_response_template(
     """
     response = get(url=f"{DB_BASE_URL}{query}{fields}", headers=request_headers)
 
+    if not response.ok:
+        return templates.TemplateResponse(
+            "error.html", {"request": request, "error_code": response.status_code}
+        )
+
     record_list = response.json()
 
     for record in record_list:
         record["due_date"] = clean_date_string(record["due_date"])
-
-    if not response:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_code": response.status_code}
-        )
 
     return templates.TemplateResponse(
         template, {"request": request, "tasks": record_list}

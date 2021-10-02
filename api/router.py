@@ -42,5 +42,5 @@ async def get_login(request: Request) -> Jinja2Templates.TemplateResponse:
 
 
 @router.get("/auth", response_class=HTMLResponse)
-async def authorise_request(request: Request):
+async def get_authorise_request(request: Request):
     ...
