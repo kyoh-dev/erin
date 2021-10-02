@@ -4,11 +4,18 @@
         {{ super() }}
     {% endblock %}
 {% block content %}
-    <div class="login-form">
-        <h3>Login</h3>
-        <label>
-            <input type="password" placeholder="Password">
-        </label>
-        <button class="btn-primary login-btn">Submit</button>
+    <div class="flex three">
+        <div class=""></div>
+        <form class="login-form" action="/auth" method="post">
+            {% if exception is not none %}
+                <h4>{{ exception }}</h4>
+            {% endif %}
+            <h3>Login</h3>
+            <label>
+                <input type="password" name="password" placeholder="Password">
+            </label>
+            <button class="btn-primary login-btn">Submit</button>
+        </form>
+        <div></div>
     </div>
 {% endblock %}
