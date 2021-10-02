@@ -45,3 +45,10 @@ async def history(request: Request) -> Jinja2Templates.TemplateResponse:
     return templates.TemplateResponse(
         'history.html', {'request': request, 'tasks': response}
     )
+
+
+async def login(request: Request) -> Jinja2Templates.TemplateResponse:
+    await request.send_push_promise('/static')
+    return templates.TemplateResponse(
+        'login.html', {'request': request}
+    )

@@ -26,18 +26,12 @@ table {
 }
 
 .btn-primary {
-    background-color: #43AA8B;
+    background-color: #577590;
 }
 
-.btn-icon {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-.btn-icon-txt {
-    padding-left: 4px;
+.menu-btn {
     font-size: 1em;
+    text-align: center !important;
 }
 
 nav.top-nav {
@@ -56,5 +50,27 @@ nav .logo {
 }
 
 .site-body {
-    margin: 4em 1.2em;
+    padding: 4em 1.2em;
+}
+
+input:focus, textarea:focus, .select select:focus {
+    border: 1px solid #43AA8B;
+}
+
+input, textarea, .select select {
+    transition: all 0s;
+}
+
+input {
+    border: 1px solid #AAA;
+}
+
+.login-form {
+    padding: 10em 20em;
+}
+
+.login-btn {
+    margin-top: 8px;
+    float: right;
+    background-color: #43AA8B;
 }
