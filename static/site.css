@@ -74,3 +74,8 @@ input {
     float: right;
     background-color: #43AA8B;
 }
+
+.login-error {
+    color: #F94144;
+    margin: 0;
+}

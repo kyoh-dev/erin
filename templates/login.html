@@ -6,9 +6,9 @@
 {% block content %}
     <div class="flex three">
         <div class=""></div>
-        <form class="login-form" action="/auth" method="post">
+        <form class="login-form" action="/login" method="post">
             {% if exception is not none %}
-                <h4>{{ exception }}</h4>
+                <p class="login-error">{{ exception }}</p>
             {% endif %}
             <h3>Login</h3>
             <label>
