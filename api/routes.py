@@ -1,17 +1,23 @@
+from secrets import token_urlsafe, compare_digest
+
 from passlib.context import CryptContext
 from starlette.requests import Request
 from starlette.templating import Jinja2Templates
 from starlette.responses import RedirectResponse
 
 from core.constants import APP_PWD
-from db.crud import get_upcoming_tasks, get_tasks_history
+from db.tasks import get_upcoming_tasks, get_tasks_history
+from db.sessions import add_session_id, get_session_id
 
 templates = Jinja2Templates(directory='templates')
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 async def home(request: Request) -> Jinja2Templates.TemplateResponse:
-    if request.session.get('authenticated'):
+    request_id = request.session.get('id')
+    server_id = await get_session_id(request_id)
+
+    if compare_digest(request_id, server_id['session_id']):
         tasks = await get_upcoming_tasks()
 
         await request.send_push_promise('/static')
@@ -23,8 +29,11 @@ async def home(request: Request) -> Jinja2Templates.TemplateResponse:
 
 
 async def history(request: Request) -> Jinja2Templates.TemplateResponse:
-    if request.session.get('authenticated'):
-        tasks = await get_tasks_history()
+    request_id = request.session.get('id')
+    server_id = await get_session_id(request_id)
+
+    if compare_digest(request_id, server_id['session_id']):
+        tasks = await get_upcoming_tasks()
 
         await request.send_push_promise('/static')
         return templates.TemplateResponse(
@@ -48,5 +57,9 @@ async def login(request: Request) -> Jinja2Templates.TemplateResponse:
             return templates.TemplateResponse(
                     'login.html', {'request': request, 'exception': 'Invalid credentials, please try again.'}
                  )
-        request.session['authenticated'] = True
+
+        session_id = token_urlsafe(32)
+        request.session['id'] = session_id
+        await add_session_id(session_id)
+
         return RedirectResponse(url='/')

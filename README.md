@@ -4,4 +4,4 @@
 
 A Telegram bot and dashboard to help housemates manage shared errands and chores.
 
-Written in Python and built with [Starlette](https://www.starlette.io/) and [python-telegram-bot](https://python-telegram-bot.org/).
+Built with [Starlette](https://www.starlette.io/) and [python-telegram-bot](https://python-telegram-bot.org/).
