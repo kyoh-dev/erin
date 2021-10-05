@@ -1,6 +1,6 @@
 # ![ErinBot](static/erin_bot_64x64.png) ErinBot
 
-> Errand -> Eran -> Erin
+> Errand -> Erran -> Erin
 
 A Telegram bot and dashboard to help housemates manage shared errands and chores.
 

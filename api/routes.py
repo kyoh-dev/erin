@@ -7,7 +7,7 @@ from starlette.responses import RedirectResponse
 
 from core.constants import APP_PWD
 from db.tasks import get_upcoming_tasks, get_tasks_history
-from db.sessions import add_session_id, get_session_id
+from db.sessions import store_session, get_session
 
 templates = Jinja2Templates(directory='templates')
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -15,9 +15,14 @@ pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 async def home(request: Request) -> Jinja2Templates.TemplateResponse:
     request_id = request.session.get('id')
-    server_id = await get_session_id(request_id)
+    request_ip = request.client.host
 
-    if compare_digest(request_id, server_id['session_id']):
+    if not request_id:
+        return RedirectResponse(url='/login')
+
+    server_session = await get_session(request_id, request_ip)
+
+    if compare_digest(request_id, server_session['session_id']) and request_ip == server_session['client_ip']:
         tasks = await get_upcoming_tasks()
 
         await request.send_push_promise('/static')
@@ -30,10 +35,15 @@ async def home(request: Request) -> Jinja2Templates.TemplateResponse:
 
 async def history(request: Request) -> Jinja2Templates.TemplateResponse:
     request_id = request.session.get('id')
-    server_id = await get_session_id(request_id)
+    request_ip = request.client.host
 
-    if compare_digest(request_id, server_id['session_id']):
-        tasks = await get_upcoming_tasks()
+    if not request_id:
+        return RedirectResponse(url='/login')
+
+    server_session = await get_session(request_id, request_ip)
+
+    if compare_digest(request_id, server_session['session_id']) and request_ip == server_session['client_ip']:
+        tasks = await get_tasks_history()
 
         await request.send_push_promise('/static')
         return templates.TemplateResponse(
@@ -60,6 +70,7 @@ async def login(request: Request) -> Jinja2Templates.TemplateResponse:
 
         session_id = token_urlsafe(32)
         request.session['id'] = session_id
-        await add_session_id(session_id)
+
+        await store_session(session_id, request.client.host)
 
         return RedirectResponse(url='/')

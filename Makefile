@@ -1,6 +1,6 @@
 ENV_FILE	?=	.env
 
-.PHONY: build start clean
+.PHONY: build
 
 build: $(ENV_FILE)
 	@docker build -t erin .
