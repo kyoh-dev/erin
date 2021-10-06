@@ -3,7 +3,7 @@ FROM python:3.9
 ENV PYTHONBUFFERED True
 WORKDIR /app
 
-COPY requirements.txt /tmp/requirements.txt
+COPY requirements.lock.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir pip -r /tmp/requirements.txt
 
 COPY . .
