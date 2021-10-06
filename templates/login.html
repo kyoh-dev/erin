@@ -4,8 +4,8 @@
         {{ super() }}
     {% endblock %}
 {% block content %}
-    <div class="flex three">
-        <div class=""></div>
+    <div class="flex one three-600 six-1200">
+        <div></div>
         <form class="login-form" action="/login" method="post">
             {% if exception is not none %}
             <p class="login-error">{{ exception }}</p>
