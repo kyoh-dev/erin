@@ -6,13 +6,13 @@ from google.cloud import firestore
 from google.cloud.exceptions import Conflict
 
 logger = getLogger(__name__)
-db = firestore.AsyncClient()
+db_client = firestore.AsyncClient()
 
 
 async def store_session(session_id: str, client_ip: str) -> tuple:
     result = None
     try:
-        result = await db.collection("sessions").add(
+        result = await db_client.collection("sessions").add(
             {
                 "session_id": session_id,
                 "client_ip": client_ip,
@@ -29,7 +29,7 @@ async def store_session(session_id: str, client_ip: str) -> tuple:
 
 async def get_session(session_id: str, client_ip: str) -> dict[str, str]:
     query = (
-        db.collection("sessions")
+        db_client.collection("sessions")
         .where("session_id", "==", session_id)
         .where("client_ip", "==", client_ip)
         .stream()

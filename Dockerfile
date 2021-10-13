@@ -1,9 +1,9 @@
-FROM python:3.9
+FROM python:3.9-slim-bullseye
 
-ENV PYTHONBUFFERED True
+ENV PYTHONUNBUFFERED True
 WORKDIR /app
 
-COPY requirements.lock.txt /tmp/requirements.txt
+COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir pip -r /tmp/requirements.txt
 
 COPY . .

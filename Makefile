@@ -1,2 +1,2 @@
-deploy-web:
-	@flyctl deploy --dockerfile ./Dockerfile.web
+deploy-app:
+	@flyctl deploy --dockerfile ./Dockerfile
