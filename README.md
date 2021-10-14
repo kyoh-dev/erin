@@ -2,6 +2,6 @@
 
 > Errand -> Erran -> Erin
 
-A Telegram bot and dashboard to help housemates manage shared errands and chores.
+A small web app to help housemates manage shared errands and chores.
 
-Built with [Starlette](https://www.starlette.io/) and [python-telegram-bot](https://python-telegram-bot.org/).
+Built with [Starlette](https://www.starlette.io/).
