@@ -43,7 +43,7 @@ th.column-action {
 }
 
 .btn-add {
-    background-color: #277DA1;
+    background-color: #3098C5;
     margin-bottom: 12px;
 }
 
@@ -117,6 +117,7 @@ input {
 }
 
 .modal-submit-btn {
+    background-color: #3098C5;
     float: right;
     margin-bottom: 10px;
 }
@@ -136,12 +137,15 @@ input {
 }
 
 .btn-table {
-    font-size: .9em;
+    font-size: .7em;
     padding: .3em .7em;
 }
 
 .btn-delete {
     background-color: #F94144;
+    padding: 8px;
+    display: flex;
+    align-items: baseline;
 }
 
 /* Picnic CSS overrides */
