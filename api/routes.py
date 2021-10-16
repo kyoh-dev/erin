@@ -32,7 +32,7 @@ async def login(request: Request) -> Jinja2Templates.TemplateResponse:
         input_pwd = form_data.get('password')
 
         if not pwd_context.verify(input_pwd, APP_PWD):
-            return await login_response(request, "Invalid credentials, please try again.")
+            return await login_response(request, error="Invalid credentials, please try again.")
 
         session_key = token_urlsafe(32)
         put_session(session_key, request.client.host)

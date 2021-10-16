@@ -19,7 +19,8 @@ def get_upcoming_tasks() -> list[tuple]:
                   description,
                   assignee
                 FROM public.task
-                WHERE due_date >= %s;
+                WHERE due_date >= %s
+                ORDER BY due_date DESC, description;
             """, (today,))
 
             tasks = cursor.fetchall()
@@ -38,7 +39,8 @@ def get_tasks_history() -> list[tuple]:
                   description,
                   assignee
                 FROM public.task
-                WHERE due_date < %s;
+                WHERE due_date < %s
+                ORDER BY due_date DESC, description;
             """, (today,))
 
             tasks = cursor.fetchall()

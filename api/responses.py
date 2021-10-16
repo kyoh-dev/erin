@@ -13,10 +13,10 @@ logger = getLogger(__name__)
 templates = Jinja2Templates(directory='templates')
 
 
-async def login_response(request: Request, exception: str = None):
+async def login_response(request: Request, warning: str = None, error: str = None):
     await request.send_push_promise('/static')
     return templates.TemplateResponse(
-        'login.html', {'request': request, 'exception': exception}
+        'login.html', {'request': request, 'warning': warning, 'error': error}
     )
 
 
@@ -39,7 +39,7 @@ async def upcoming_tasks_response(request: Request):
             'index.html', {'request': request, 'tasks': tasks}
         )
     else:
-        return await login_response(request, "Session expired, please login to proceed.")
+        return await login_response(request, warning="Session expired, please login to proceed.")
 
 
 async def tasks_history_response(request: Request):
@@ -61,4 +61,4 @@ async def tasks_history_response(request: Request):
             'history.html', {'request': request, 'tasks': tasks}
         )
     else:
-        return await login_response(request, "Session expired, please login to proceed.")
+        return await login_response(request, warning="Session expired, please login to proceed.")
