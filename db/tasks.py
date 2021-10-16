@@ -49,7 +49,15 @@ def get_tasks_history() -> list[tuple]:
     return tasks
 
 
-def add_task(
+def put_task(
     assignee: str, description: str, due_date: str
 ) -> None:
-    ...
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO public.task (assignee, description, due_date)
+                VALUES (%s, %s, %s)
+            """, (assignee, description, due_date))
+
+    conn.close()

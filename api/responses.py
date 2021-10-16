@@ -20,6 +20,13 @@ async def login_response(request: Request, warning: str = None, error: str = Non
     )
 
 
+async def add_task_error_response(request: Request, error: str):
+    await request.send_push_promise('/static')
+    return templates.TemplateResponse(
+        'index.html', {'request': request, 'error': error}
+    )
+
+
 async def upcoming_tasks_response(request: Request):
     clear_expired_sessions()
 
@@ -39,7 +46,7 @@ async def upcoming_tasks_response(request: Request):
             'index.html', {'request': request, 'tasks': tasks}
         )
     else:
-        return await login_response(request, warning="Session expired, please login to proceed.")
+        return await login_response(request, warning="Session expired, please login to continue.")
 
 
 async def tasks_history_response(request: Request):
@@ -61,4 +68,4 @@ async def tasks_history_response(request: Request):
             'history.html', {'request': request, 'tasks': tasks}
         )
     else:
-        return await login_response(request, warning="Session expired, please login to proceed.")
+        return await login_response(request, warning="Session expired, please login to continue.")

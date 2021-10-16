@@ -7,10 +7,11 @@ from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
 
 from core.constants import APP_SECRET_KEY
-from api.routes import home, history, login
+from api.routes import home, add_task, history, login
 
 routes = [
     Route('/', endpoint=home, methods=['GET', 'POST']),
+    Route('/add-task', endpoint=add_task, methods=['POST']),
     Route('/history', endpoint=history),
     Route('/login', endpoint=login, methods=['GET', 'POST']),
     Mount('/static', StaticFiles(directory='static'), name='static'),
