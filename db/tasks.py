@@ -1,21 +1,53 @@
 from logging import getLogger
 from datetime import datetime
 
-from core.utils import date_display_fmt
+from psycopg2 import DatabaseError
+
+from db.connection import get_connection
 
 logger = getLogger(__name__)
-current_date = datetime.today().strftime("%Y%m%d")
+today = datetime.today().strftime('%Y-%m-%d')
 
 
-def get_upcoming_tasks() -> list[dict[str, str]]:
-    ...
+def get_upcoming_tasks() -> list[tuple]:
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT
+                  to_char(due_date::date, 'dd/mm/yyyy'),
+                  description,
+                  assignee
+                FROM public.task
+                WHERE due_date >= %s;
+            """, (today,))
+
+            tasks = cursor.fetchall()
+
+    conn.close()
+    return tasks
 
 
-def get_tasks_history() -> list[dict[str, str]]:
-    ...
+def get_tasks_history() -> list[tuple]:
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT
+                  to_char(due_date::date, 'dd/mm/yyyy'),
+                  description,
+                  assignee
+                FROM public.task
+                WHERE due_date < %s;
+            """, (today,))
+
+            tasks = cursor.fetchall()
+
+    conn.close()
+    return tasks
 
 
 def add_task(
     assignee: str, description: str, due_date: str
-) -> tuple:
+) -> None:
     ...

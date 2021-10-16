@@ -10,18 +10,18 @@ from core.constants import APP_SECRET_KEY
 from api.routes import home, history, login
 
 routes = [
-    Route("/", endpoint=home, methods=["GET", "POST"]),
-    Route("/history", endpoint=history),
-    Route("/login", endpoint=login, methods=["GET", "POST"]),
-    Mount("/static", StaticFiles(directory="static"), name="static"),
+    Route('/', endpoint=home, methods=['GET', 'POST']),
+    Route('/history', endpoint=history),
+    Route('/login', endpoint=login, methods=['GET', 'POST']),
+    Mount('/static', StaticFiles(directory='static'), name='static'),
 ]
 
 middleware = [
-    Middleware(
-        TrustedHostMiddleware,
-        allowed_hosts=["*.kyoh.run", "erin.floral-wildflower-6316.fly.dev"],
-    ),
-    Middleware(HTTPSRedirectMiddleware),
+    # Middleware(
+    #     TrustedHostMiddleware,
+    #     allowed_hosts=['*.kyoh.run', 'erin.floral-wildflower-6316.fly.dev'],
+    # ),
+    # Middleware(HTTPSRedirectMiddleware),
     Middleware(
         SessionMiddleware, secret_key=APP_SECRET_KEY, max_age=600, https_only=True
     ),
