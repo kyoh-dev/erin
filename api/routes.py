@@ -12,7 +12,7 @@ from starlette.responses import RedirectResponse
 from core.constants import APP_PWD
 from core.sessions import put_session
 from db.tasks import add_task_record, delete_task_record
-from api.responses import upcoming_tasks_response, tasks_history_response, login_response, task_error_response
+from api.responses import upcoming_tasks_response, tasks_history_response, login_response
 
 logger = getLogger(__name__)
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -33,8 +33,8 @@ async def add_task(request: Request) -> Union[Coroutine, Response]:
         )
     except DatabaseError as ex:
         logger.exception(ex)
-        return task_error_response(request, "There was a problem adding that task, please try again.")
-    else:
+        # TODO: Handle task exception alert banners
+    finally:
         return RedirectResponse(url='/')
 
 

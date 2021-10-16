@@ -20,13 +20,6 @@ async def login_response(request: Request, warning: str = None, error: str = Non
     )
 
 
-async def task_error_response(request: Request, error: str):
-    await request.send_push_promise('/static')
-    return templates.TemplateResponse(
-        'index.html', {'request': request, 'error': error}
-    )
-
-
 async def upcoming_tasks_response(request: Request):
     clear_expired_sessions()
 

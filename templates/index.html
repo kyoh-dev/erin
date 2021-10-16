@@ -12,7 +12,7 @@
     <thead>
         <tr>
             <th class="column-date">Date</th>
-            <th>Task</th>
+            <th class="column-task">Task</th>
             <th class="column-assignee">Assignee</th>
             <th class="column-action"></th>
         </tr>
@@ -21,8 +21,12 @@
     {% for task in tasks %}
         <tr>
             <td>{{ task[1] }}</td>
-            <td>{{ task[2] }}</td>
-            <td>{{ task[3] }}</td>
+            <td class="cell-task">{{ task[2] }}</td>
+            <td>
+                {% if task[3] is not none %}
+                {{ task[3] }}
+                {% endif %}
+            </td>
             <td>
                 <form action="/delete-task" method="post">
                     <button class="button btn-delete btn-table" name="delete-task-id" value="{{ task[0] }}" title="Delete task">

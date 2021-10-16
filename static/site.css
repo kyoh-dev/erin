@@ -18,6 +18,10 @@ table {
     font-size: 1em;
 }
 
+td, th {
+    padding: .3em .6em .3em .6em;
+}
+
 th.column-date {
     width: 10%;
 }
@@ -146,6 +150,30 @@ input {
     padding: 8px;
     display: flex;
     align-items: baseline;
+}
+
+/* Mobile specific */
+@media all and (max-width: 600px) {
+    .site-body {
+        padding: 4em .5em;
+    }
+
+    nav.top-nav {
+        padding: 2.1em 0;
+        height: 2em;
+    }
+
+    nav .brand {
+        padding: 0 .3em;
+    }
+
+    nav .logo {
+        height: 2em;
+    }
+
+    nav .menu>* {
+        margin-right: .5em;
+    }
 }
 
 /* Picnic CSS overrides */
