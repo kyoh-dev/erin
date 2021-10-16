@@ -29,6 +29,10 @@ table {
     background-color: #577590;
 }
 
+.btn-action {
+    background-color: #277DA1;
+}
+
 .menu-btn {
     font-size: 1em;
     text-align: center !important;
@@ -91,7 +95,34 @@ input {
     line-height: 1.2;
 }
 
+.tasks-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.modal-submit-btn {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.modal-form-section {
+    padding: .2em .2em .4em;
+}
+
 /* Picnic CSS overrides */
 .error.label, .error[data-tooltip]:after, button.error, .error.button, .error[type=submit], .error.dropimage {
     background-color: #F94144;
+}
+
+.card .dangerous, .modal .overlay ~ * .dangerous {
+    background-color: #F94144;
+}
+
+.card .close:hover, .modal .overlay ~ * .close:hover {
+    color: #F94144;
+}
+
+.card .dangerous, .modal .overlay ~ * .dangerous {
+    float: left;
 }

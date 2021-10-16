@@ -4,23 +4,23 @@
         {{ super() }}
     {% endblock %}
 {% block content %}
-    <h1>History</h1>
-    <table class="primary">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Task</th>
-                <th>Assignee</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task[0] }}</td>
-                <td>{{ task[1] }}</td>
-                <td>{{ task[2] }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<h1>History</h1>
+<table class="primary">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Task</th>
+            <th>Assignee</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task[0] }}</td>
+            <td>{{ task[1] }}</td>
+            <td>{{ task[2] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

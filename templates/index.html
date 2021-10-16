@@ -4,23 +4,64 @@
         {{ super() }}
     {% endblock %}
 {% block content %}
+<div class="tasks-heading">
     <h1>Upcoming tasks</h1>
-    <table class="primary">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Task</th>
-                <th>Assignee</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task[0] }}</td>
-                <td>{{ task[1] }}</td>
-                <td>{{ task[2] }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <label for="add-task-modal" class="button btn-action">Add</label>
+</div>
+<table class="primary">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Task</th>
+            <th>Assignee</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task[0] }}</td>
+            <td>{{ task[1] }}</td>
+            <td>{{ task[2] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="modal">
+    <input id="add-task-modal" type="checkbox" />
+    <label for="add-task-modal" class="overlay"></label>
+    <article>
+        <header>
+            <h3>Add a task</h3>
+            <label for="add-task-modal" class="close">&times;</label>
+        </header>
+        <section class="content">
+            <form class="add-task-form" action="/add-task" method="post">
+                <div class="modal-form-section">
+                    <label for="due-date-picker">Due date</label>
+                    <input type="date" name="due-date" id="due-date-picker">
+                </div>
+                <div class="modal-form-section">
+                    <label for="task-textarea">Task</label>
+                    <textarea placeholder="Clean the..." name="task" id="task-textarea"></textarea>
+                </div>
+                <div class="modal-form-section">
+                    <label for="assignee-select">Assignee</label>
+                    <select name="assignee" id="assignee-select">
+                        <option style="display:none">
+                        <option>Cara</option>
+                        <option>Connor</option>
+                        <option>Melanie</option>
+                        <option>Mitch</option>
+                    </select>
+                </div>
+                <footer>
+                    <label for="add-task-modal" class="button dangerous">
+                        Cancel
+                    </label>
+                    <button class="button btn-action modal-submit-btn">Submit</button>
+                </footer>
+            </form>
+        </section>
+    </article>
+</div>
 {% endblock %}
