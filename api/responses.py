@@ -20,7 +20,7 @@ async def login_response(request: Request, warning: str = None, error: str = Non
     )
 
 
-async def add_task_error_response(request: Request, error: str):
+async def task_error_response(request: Request, error: str):
     await request.send_push_promise('/static')
     return templates.TemplateResponse(
         'index.html', {'request': request, 'error': error}
