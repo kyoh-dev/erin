@@ -6,14 +6,15 @@
 {% block content %}
 <div class="tasks-heading">
     <h1>Upcoming tasks</h1>
-    <label for="add-task-modal" class="button btn-action">Add</label>
+    <label for="add-task-modal" class="button btn-add">Add</label>
 </div>
 <table class="primary">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Task</th>
-            <th>Assignee</th>
+            <th class="column-date">Date</th>
+            <th class="column-task">Task</th>
+            <th class="column-assignee">Assignee</th>
+            <th class="column-action"></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <td>{{ task[0] }}</td>
             <td>{{ task[1] }}</td>
             <td>{{ task[2] }}</td>
+            <td></td>
         </tr>
     {% endfor %}
     </tbody>
@@ -29,7 +31,7 @@
 <div class="modal">
     <input id="add-task-modal" type="checkbox" />
     <label for="add-task-modal" class="overlay"></label>
-    <article>
+    <article class="modal-article">
         <header>
             <h3>Add a task</h3>
             <label for="add-task-modal" class="close">&times;</label>
@@ -37,16 +39,16 @@
         <section class="content">
             <form class="add-task-form" action="/add-task" method="post">
                 <div class="modal-form-section">
-                    <label for="due-date-picker">Due date</label>
-                    <input type="date" name="due-date" id="due-date-picker">
+                    <label for="add-due-date">Due date</label>
+                    <input type="date" name="due-date" id="add-due-date">
                 </div>
                 <div class="modal-form-section">
-                    <label for="task-textarea">Task</label>
-                    <textarea placeholder="Clean the..." name="task" id="task-textarea"></textarea>
+                    <label for="add-task">Task</label>
+                    <textarea placeholder="Clean the..." name="task" id="add-task"></textarea>
                 </div>
                 <div class="modal-form-section">
-                    <label for="assignee-select">Assignee</label>
-                    <select name="assignee" id="assignee-select">
+                    <label for="add-assignee">Assignee</label>
+                    <select name="assignee" id="add-assignee">
                         <option style="display:none">
                         <option>Cara</option>
                         <option>Connor</option>
@@ -54,12 +56,12 @@
                         <option>Mitch</option>
                     </select>
                 </div>
-                <footer>
+                <div class="modal-footer">
                     <label for="add-task-modal" class="button dangerous">
                         Cancel
                     </label>
                     <button class="button btn-action modal-submit-btn">Submit</button>
-                </footer>
+                </div>
             </form>
         </section>
     </article>

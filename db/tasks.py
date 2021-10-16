@@ -15,7 +15,7 @@ def get_upcoming_tasks() -> list[tuple]:
         with conn.cursor() as cursor:
             cursor.execute("""
                 SELECT
-                  to_char(due_date::date, 'dd/mm/yyyy'),
+                  to_char(due_date::date, 'dd/mm'),
                   description,
                   assignee
                 FROM public.task
