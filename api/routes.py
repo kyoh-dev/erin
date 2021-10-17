@@ -12,10 +12,14 @@ from starlette.responses import RedirectResponse
 from core.constants import APP_PWD
 from core.sessions import put_session
 from db.tasks import add_task_record, delete_task_record
-from api.responses import upcoming_tasks_response, tasks_history_response, login_response
+from api.responses import (
+    upcoming_tasks_response,
+    tasks_history_response,
+    login_response,
+)
 
 logger = getLogger(__name__)
-pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 async def home(request: Request) -> Response:
@@ -27,26 +31,26 @@ async def add_task(request: Request) -> Union[Coroutine, Response]:
 
     try:
         add_task_record(
-            clean(form_data.get('assignee')),
-            clean(form_data.get('task')),
-            clean(form_data.get('due-date'))
+            clean(form_data.get("assignee")),
+            clean(form_data.get("task")),
+            clean(form_data.get("due-date")),
         )
     except DatabaseError as ex:
         logger.exception(ex)
     finally:
-        return RedirectResponse(url='/')
+        return RedirectResponse(url="/")
 
 
 async def delete_task(request: Request) -> Union[Coroutine, Response]:
     form_data = await request.form()
-    task_id = form_data.get('delete-task-id')
+    task_id = form_data.get("delete-task-id")
 
     try:
         delete_task_record(task_id)
     except (TypeError, DatabaseError) as ex:
         logger.exception(ex)
     finally:
-        return RedirectResponse(url='/')
+        return RedirectResponse(url="/")
 
 
 async def history(request: Request) -> Response:
@@ -54,18 +58,20 @@ async def history(request: Request) -> Response:
 
 
 async def login(request: Request) -> Response:
-    if request.method == 'GET':
+    if request.method == "GET":
         return await login_response(request)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form_data = await request.form()
-        input_pwd = clean(form_data.get('password'))
+        input_pwd = clean(form_data.get("password"))
 
         if not pwd_context.verify(input_pwd, APP_PWD):
-            return await login_response(request, error="Invalid credentials, please try again.")
+            return await login_response(
+                request, error="Invalid credentials, please try again."
+            )
 
         session_key = token_urlsafe(32)
         put_session(session_key, request.client.host)
-        request.session['key'] = session_key
+        request.session["key"] = session_key
 
-        return RedirectResponse(url='/')
+        return RedirectResponse(url="/")

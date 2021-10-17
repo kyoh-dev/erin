@@ -4,14 +4,15 @@ from datetime import datetime
 from db.connection import get_connection
 
 logger = getLogger(__name__)
-today = datetime.today().strftime('%Y-%m-%d')
+today = datetime.today().strftime("%Y-%m-%d")
 
 
 def get_upcoming_tasks() -> list[tuple]:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute("""
+            cursor.execute(
+                """
                 SELECT
                   id,
                   to_char(due_date::date, 'dd/mm'),
@@ -20,7 +21,9 @@ def get_upcoming_tasks() -> list[tuple]:
                 FROM public.task
                 WHERE due_date >= %s
                 ORDER BY due_date DESC, description;
-            """, (today,))
+            """,
+                (today,),
+            )
 
             tasks = cursor.fetchall()
 
@@ -32,7 +35,8 @@ def get_tasks_history() -> list[tuple]:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute("""
+            cursor.execute(
+                """
                 SELECT
                   to_char(due_date::date, 'dd/mm/yy'),
                   description,
@@ -40,7 +44,9 @@ def get_tasks_history() -> list[tuple]:
                 FROM public.task
                 WHERE due_date < %s
                 ORDER BY due_date DESC, description;
-            """, (today,))
+            """,
+                (today,),
+            )
 
             tasks = cursor.fetchall()
 
@@ -48,16 +54,17 @@ def get_tasks_history() -> list[tuple]:
     return tasks
 
 
-def add_task_record(
-    assignee: str, description: str, due_date: str
-) -> None:
+def add_task_record(assignee: str, description: str, due_date: str) -> None:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute("""
+            cursor.execute(
+                """
                 INSERT INTO public.task (assignee, description, due_date)
                 VALUES (%s, %s, %s)
-            """, (assignee, description, due_date))
+            """,
+                (assignee, description, due_date),
+            )
 
             conn.commit()
 
@@ -66,15 +73,18 @@ def add_task_record(
 
 def delete_task_record(task_id: int) -> None:
     if task_id is None:
-        raise TypeError('No task_id to delete.')
+        raise TypeError("No task_id to delete.")
 
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute("""
+            cursor.execute(
+                """
                 DELETE FROM public.task
                 WHERE id = %s
-            """, (task_id,))
+            """,
+                (task_id,),
+            )
 
             conn.commit()
 
