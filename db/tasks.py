@@ -34,7 +34,7 @@ def get_tasks_history() -> list[tuple]:
         with conn.cursor() as cursor:
             cursor.execute("""
                 SELECT
-                  to_char(due_date::date, 'dd/mm/yyyy'),
+                  to_char(due_date::date, 'dd/mm/yy'),
                   description,
                   assignee
                 FROM public.task

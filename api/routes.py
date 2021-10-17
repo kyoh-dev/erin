@@ -33,7 +33,6 @@ async def add_task(request: Request) -> Union[Coroutine, Response]:
         )
     except DatabaseError as ex:
         logger.exception(ex)
-        # TODO: Handle task exception alert banners
     finally:
         return RedirectResponse(url='/')
 

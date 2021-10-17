@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13.4
+    container_name: erin_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./db/test:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  app:
+    build:
+      context: .
+    container_name: erin_app
+    ports:
+      - '7133:8080'
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  pg_data:

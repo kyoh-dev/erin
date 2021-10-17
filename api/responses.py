@@ -3,7 +3,6 @@ from logging import getLogger
 from starlette.requests import Request
 from starlette.responses import RedirectResponse
 from starlette.templating import Jinja2Templates
-from psycopg2 import DatabaseError
 
 from core.constants import SESSIONS
 from core.sessions import clear_expired_sessions
