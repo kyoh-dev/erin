@@ -18,6 +18,10 @@ table {
     font-size: 1em;
 }
 
+td, th {
+    padding: .3em .6em .3em .6em;
+}
+
 th.column-date {
     width: 10%;
 }
@@ -43,7 +47,7 @@ th.column-action {
 }
 
 .btn-add {
-    background-color: #277DA1;
+    background-color: #3098C5;
     margin-bottom: 12px;
 }
 
@@ -54,7 +58,7 @@ th.column-action {
 }
 
 nav.top-nav {
-    padding: 2.1em .2em;
+    padding: 2.1em .6em 2.1em .2em;
     height: 4em;
     -webkit-box-shadow: 3px 3px 4px 2px rgba(0,0,0,0.06);
     box-shadow: 3px 3px 4px 2px rgba(0,0,0,0.06);
@@ -117,6 +121,7 @@ input {
 }
 
 .modal-submit-btn {
+    background-color: #3098C5;
     float: right;
     margin-bottom: 10px;
 }
@@ -136,12 +141,39 @@ input {
 }
 
 .btn-table {
-    font-size: .9em;
+    font-size: .7em;
     padding: .3em .7em;
 }
 
 .btn-delete {
     background-color: #F94144;
+    padding: 8px;
+    display: flex;
+    align-items: baseline;
+}
+
+/* Mobile specific */
+@media all and (max-width: 600px) {
+    .site-body {
+        padding: 4em .5em;
+    }
+
+    nav.top-nav {
+        padding: 2.1em 0;
+        height: 2em;
+    }
+
+    nav .brand {
+        padding: 0 .3em;
+    }
+
+    nav .logo {
+        height: 2em;
+    }
+
+    nav .menu>* {
+        margin-right: .5em;
+    }
 }
 
 /* Picnic CSS overrides */

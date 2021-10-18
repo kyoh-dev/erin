@@ -10,12 +10,12 @@ logger = getLogger(__name__)
 
 def put_session(session_key: str, client_ip: str) -> None:
     SESSIONS[session_key] = {
-        'client_ip': client_ip,
-        'expires': datetime.now(utc) + timedelta(minutes=15)
+        "client_ip": client_ip,
+        "expires": datetime.now(utc) + timedelta(minutes=15),
     }
 
 
 def clear_expired_sessions() -> None:
     for session, values in SESSIONS.items():
-        if values['expires'] <= datetime.now(utc):
+        if values["expires"] <= datetime.now(utc):
             del SESSIONS[session]
