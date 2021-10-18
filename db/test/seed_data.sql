@@ -1,5 +1,6 @@
 BEGIN;
-TRUNCATE TABLE public.task;
+
+DELETE FROM public.task;
 
 INSERT INTO
   public.task (assignee, description, due_date)

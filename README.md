@@ -10,3 +10,6 @@ see the required environment variables.
 
 **NB**: You may need to comment out the HTTPSRedirect middleware to get 
 everything working locally.
+
+#### TODO:
+- [ ] Add table for assignees, remove hardcoding
