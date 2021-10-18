@@ -16,6 +16,6 @@ def put_session(session_key: str, client_ip: str) -> None:
 
 
 def clear_expired_sessions() -> None:
-    for session, values in SESSIONS.items():
-        if values["expires"] <= datetime.now(utc):
+    for session in list(SESSIONS):
+        if SESSIONS[session]['expires'] <= datetime.now(utc):
             del SESSIONS[session]

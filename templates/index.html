@@ -4,83 +4,124 @@
         {{ super() }}
     {% endblock %}
 {% block content %}
-<div class="tasks-heading">
-    <h1>Upcoming tasks</h1>
-    <label for="add-task-modal" class="button btn-add">Add</label>
-</div>
-<table class="primary">
-    <thead>
-        <tr>
-            <th class="column-date">Date</th>
-            <th class="column-task">Task</th>
-            <th class="column-assignee">Assignee</th>
-            <th class="column-action"></th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for task in tasks %}
-        <tr>
-            <td>{{ task[1] }}</td>
-            <td class="cell-task">{{ task[2] }}</td>
-            <td>
-                {% if task[3] is not none %}
-                {{ task[3] }}
-                {% endif %}
-            </td>
-            <td>
-                <form action="/delete-task" method="post">
-                    <button class="button btn-delete btn-table" name="delete-task-id" value="{{ task[0] }}" title="Delete task">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <line x1="4" y1="7" x2="20" y2="7" />
-                            <line x1="10" y1="11" x2="10" y2="17" />
-                            <line x1="14" y1="11" x2="14" y2="17" />
-                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                        </svg>
-                    </button>
+<nav class="top-nav">
+    <a href="/" class="brand">
+        <img class="logo" src="/static/erin_idle.gif" />
+        <span>ErinBot</span>
+    </a>
+
+    <div class="menu">
+        <a href="/history" class="button btn-primary menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="12" cy="12" r="9" />
+                <polyline points="12 7 12 12 15 15" />
+            </svg>
+        </a>
+    </div>
+</nav>
+<div class="site-body">
+    <div class="tasks-heading">
+        <h1>Upcoming tasks</h1>
+        <label for="add-task-modal" class="button btn-add">Add</label>
+    </div>
+    <table class="primary">
+        <thead>
+            <tr>
+                <th class="column-done"></th>
+                <th class="column-date">Date</th>
+                <th class="column-task">Task</th>
+                <th class="column-assignee">Assignee</th>
+                <th class="column-delete"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>
+                    <form action="/complete-task" method="post">
+                        <button class="button btn-done btn-table" id="complete-task-btn" onclick="celebrate()" name="complete-task-id" value="{{ task[0] }}" title="Complete task">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M5 12l5 5l10 -10" />
+                            </svg>
+                        </button>
+                    </form>
+                </td>
+                <td>{{ task[1] }}</td>
+                <td class="cell-task">{{ task[2] }}</td>
+                <td>
+                    {% if task[3] is not none %}
+                    {{ task[3] }}
+                    {% endif %}
+                </td>
+                <td>
+                    <form action="/delete-task" method="post">
+                        <button class="button btn-delete btn-table" name="delete-task-id" value="{{ task[0] }}" title="Delete task">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="modal">
+        <input id="add-task-modal" type="checkbox" />
+        <label for="add-task-modal" class="overlay"></label>
+        <article class="modal-article">
+            <header>
+                <h3>Add a task</h3>
+                <label for="add-task-modal" class="close">&times;</label>
+            </header>
+            <section class="content">
+                <form class="add-task-form" action="/add-task" method="post">
+                    <div class="modal-form-section">
+                        <label for="add-due-date">Due date</label>
+                        <input type="date" name="due-date" id="add-due-date">
+                    </div>
+                    <div class="modal-form-section">
+                        <label for="add-task">Task</label>
+                        <textarea placeholder="Clean the..." name="task" id="add-task"></textarea>
+                    </div>
+                    <div class="modal-form-section">
+                        <label for="add-assignee">Assignee</label>
+                        <select name="assignee" id="add-assignee">
+                            <option style="display:none">
+                            <option>Cara</option>
+                            <option>Connor</option>
+                            <option>Melanie</option>
+                            <option>Mitch</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <label for="add-task-modal" class="button dangerous">
+                            Cancel
+                        </label>
+                        <button class="button modal-submit-btn">Submit</button>
+                    </div>
                 </form>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-<div class="modal">
-    <input id="add-task-modal" type="checkbox" />
-    <label for="add-task-modal" class="overlay"></label>
-    <article class="modal-article">
-        <header>
-            <h3>Add a task</h3>
-            <label for="add-task-modal" class="close">&times;</label>
-        </header>
-        <section class="content">
-            <form class="add-task-form" action="/add-task" method="post">
-                <div class="modal-form-section">
-                    <label for="add-due-date">Due date</label>
-                    <input type="date" name="due-date" id="add-due-date">
-                </div>
-                <div class="modal-form-section">
-                    <label for="add-task">Task</label>
-                    <textarea placeholder="Clean the..." name="task" id="add-task"></textarea>
-                </div>
-                <div class="modal-form-section">
-                    <label for="add-assignee">Assignee</label>
-                    <select name="assignee" id="add-assignee">
-                        <option style="display:none">
-                        <option>Cara</option>
-                        <option>Connor</option>
-                        <option>Melanie</option>
-                        <option>Mitch</option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <label for="add-task-modal" class="button dangerous">
-                        Cancel
-                    </label>
-                    <button class="button modal-submit-btn">Submit</button>
-                </div>
-            </form>
-        </section>
-    </article>
+            </section>
+        </article>
+    </div>
+    <div class="modal">
+        <input id="completed-modal" type="checkbox" />
+        <label for="completed-modal" class="overlay"></label>
+        <article>
+            <header>
+                <h3>🎉 Woot woot! 🎉</h3>
+                <label for="completed-modal" class="close">&times;</label>
+            </header>
+            <section class="content">
+                Well done, you deserve a drink.
+            </section>
+            <footer class="completed-modal-footer">
+            </footer>
+        </article>
+    </div>
 </div>
 {% endblock %}

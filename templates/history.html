@@ -4,23 +4,41 @@
         {{ super() }}
     {% endblock %}
 {% block content %}
-<h1>History</h1>
-<table class="primary">
-    <thead>
-        <tr>
-            <th class="column-date">Date</th>
-            <th>Task</th>
-            <th class="column-assignee">Assignee</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for task in tasks %}
-        <tr>
-            <td>{{ task[0] }}</td>
-            <td>{{ task[1] }}</td>
-            <td>{{ task[2] }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<nav class="top-nav">
+    <a href="/" class="brand">
+        <img class="logo" src="/static/erin_idle.gif" />
+        <span>ErinBot</span>
+    </a>
+
+    <div class="menu">
+        <a href="/" class="button btn-primary menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </a>
+    </div>
+</nav>
+<div class="site-body">
+    <h1>History</h1>
+    <table class="primary">
+        <thead>
+            <tr>
+                <th class="column-date">Date</th>
+                <th>Task</th>
+                <th class="column-assignee">Assignee</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task[0] }}</td>
+                <td>{{ task[1] }}</td>
+                <td>{{ task[2] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

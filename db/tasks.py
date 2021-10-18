@@ -19,7 +19,7 @@ def get_upcoming_tasks() -> list[tuple]:
                   description,
                   assignee
                 FROM public.task
-                WHERE due_date >= %s
+                WHERE completed = false
                 ORDER BY due_date DESC, description;
             """,
                 (today,),
@@ -42,7 +42,7 @@ def get_tasks_history() -> list[tuple]:
                   description,
                   assignee
                 FROM public.task
-                WHERE due_date < %s
+                WHERE completed = true
                 ORDER BY due_date DESC, description;
             """,
                 (today,),
@@ -61,9 +61,30 @@ def add_task_record(assignee: str, description: str, due_date: str) -> None:
             cursor.execute(
                 """
                 INSERT INTO public.task (assignee, description, due_date)
-                VALUES (%s, %s, %s)
+                VALUES (%s, %s, %s);
             """,
                 (assignee, description, due_date),
+            )
+
+            conn.commit()
+
+    conn.close()
+
+
+def complete_task_record(task_id: int) -> None:
+    if task_id is None:
+        raise TypeError("No task_id to complete.")
+
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE public.task
+                SET completed = true
+                WHERE id = %s;
+            """,
+                (task_id,),
             )
 
             conn.commit()
@@ -81,7 +102,7 @@ def delete_task_record(task_id: int) -> None:
             cursor.execute(
                 """
                 DELETE FROM public.task
-                WHERE id = %s
+                WHERE id = %s;
             """,
                 (task_id,),
             )

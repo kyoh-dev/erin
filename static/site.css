@@ -3,7 +3,7 @@ body {
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: 1.5em;
     padding: .6em 0 .2em;
 }
 
@@ -30,7 +30,11 @@ th.column-assignee {
     width: 10%;
 }
 
-th.column-action {
+th.column-delete {
+    width: 3%;
+}
+
+th.column-done {
     width: 3%;
 }
 
@@ -48,7 +52,7 @@ th.column-action {
 
 .btn-add {
     background-color: #3098C5;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
 
 .menu-btn {
@@ -70,6 +74,7 @@ nav.top-nav {
 
 nav .logo {
     height: 2.2em;
+    margin-bottom: 8px;
 }
 
 .site-body {
@@ -141,15 +146,26 @@ input {
 }
 
 .btn-table {
-    font-size: .7em;
-    padding: .3em .7em;
+    font-size: .5em;
+    padding: .1em .5em;
 }
 
 .btn-delete {
     background-color: #F94144;
-    padding: 8px;
+    padding: 5px;
     display: flex;
     align-items: baseline;
+}
+
+.btn-done {
+    background-color: #90BE6D;
+    padding: 5px;
+    display: flex;
+    align-items: baseline;
+}
+
+footer.completed-modal-footer {
+    padding: .5em !important;
 }
 
 /* Mobile specific */
