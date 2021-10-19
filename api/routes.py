@@ -52,7 +52,7 @@ async def complete_task(request: Request):
         logger.exception(ex)
     finally:
         # Leave time for the confetti to finish
-        sleep(0.5)
+        sleep(0.3)
         return RedirectResponse(url='/')
 
 

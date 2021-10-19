@@ -31,7 +31,7 @@ th.column-assignee {
 }
 
 th.column-delete {
-    width: 3%;
+    width: 1%;
 }
 
 th.column-done {
@@ -146,13 +146,13 @@ input {
 }
 
 .btn-table {
-    font-size: .5em;
+    font-size: .2em;
     padding: .1em .5em;
 }
 
 .btn-delete {
     background-color: #F94144;
-    padding: 5px;
+    padding: 2px;
     display: flex;
     align-items: baseline;
 }
@@ -163,6 +163,10 @@ input {
     padding: 5px;
     display: flex;
     align-items: baseline;
+}
+
+.btn-done:hover {
+    border: 1px solid #ADB5BD;
 }
 
 footer.completed-modal-footer {
@@ -190,6 +194,10 @@ footer.completed-modal-footer {
 
     nav .menu>* {
         margin-right: .5em;
+    }
+
+    table {
+        font-size: .8em;
     }
 }
 
