@@ -16,6 +16,7 @@ from db.tasks import add_task_record, complete_task_record, delete_task_record
 from api.responses import (
     upcoming_tasks_response,
     tasks_history_response,
+    celebrate_response,
     login_response,
 )
 
@@ -51,9 +52,7 @@ async def complete_task(request: Request):
     except (TypeError, DatabaseError) as ex:
         logger.exception(ex)
     finally:
-        # Leave time for the confetti to finish
-        sleep(0.4)
-        return RedirectResponse(url='/')
+        return await celebrate_response(request)
 
 
 async def delete_task(request: Request) -> Union[Coroutine, Response]:
