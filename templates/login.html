@@ -1,15 +1,10 @@
 {% extends "base.html" %}
-    {% block title %}Login{% endblock %}
+    {% block title %}Login{% endblock title %}
     {% block head %}
         {{ super() }}
-    {% endblock %}
+    {% endblock head %}
 {% block content %}
-<nav class="top-nav">
-    <a href="/" class="brand">
-        <img class="logo" src="/static/erin_idle.gif" />
-        <span>ErinBot</span>
-    </a>
-</nav>
+{% include "plain_navbar.html" %}
 <div class="site-body">
     <div class="flex one three-600">
         <div></div>
@@ -28,4 +23,4 @@
         <div></div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

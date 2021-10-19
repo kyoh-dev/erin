@@ -1,17 +1,12 @@
 {% extends "base.html" %}
-    {% block title %}Error{% endblock %}
+    {% block title %}Error{% endblock title %}
     {% block head %}
         {{ super() }}
-    {% endblock %}
+    {% endblock head %}
 {% block content %}
-<nav class="top-nav">
-    <a href="/" class="brand">
-        <img class="logo" src="/static/erin_idle.gif" />
-        <span>ErinBot</span>
-    </a>
-</nav>
+{% include "plain_navbar.html" %}
 <div class="site-body">
     <h1>Error<span class="label error">HTTP {{ error_code }}</span></h1>
     <h3>Beep boop, I could not compute that request. Please try again.</h3>
 </div>
-{% endblock %}
+{% endblock content %}
