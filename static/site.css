@@ -158,7 +158,8 @@ input {
 }
 
 .btn-done {
-    background-color: #90BE6D;
+    border: 1px solid #343A40;
+    background-color: #E9ECEF;
     padding: 5px;
     display: flex;
     align-items: baseline;

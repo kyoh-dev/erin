@@ -41,7 +41,7 @@
                 <td>
                     <form action="/complete-task" method="post">
                         <button class="button btn-done btn-table" id="complete-task-btn" onclick="celebrate()" name="complete-task-id" value="{{ task[0] }}" title="Complete task">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#343A40" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M5 12l5 5l10 -10" />
                             </svg>
@@ -106,21 +106,6 @@
                     </div>
                 </form>
             </section>
-        </article>
-    </div>
-    <div class="modal">
-        <input id="completed-modal" type="checkbox" />
-        <label for="completed-modal" class="overlay"></label>
-        <article>
-            <header>
-                <h3>🎉 Woot woot! 🎉</h3>
-                <label for="completed-modal" class="close">&times;</label>
-            </header>
-            <section class="content">
-                Well done, you deserve a drink.
-            </section>
-            <footer class="completed-modal-footer">
-            </footer>
         </article>
     </div>
 </div>

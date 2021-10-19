@@ -1,5 +1,6 @@
 from typing import Union, Coroutine
 from logging import getLogger
+from time import sleep
 from secrets import token_urlsafe
 
 from bleach import clean
@@ -50,6 +51,8 @@ async def complete_task(request: Request):
     except (TypeError, DatabaseError) as ex:
         logger.exception(ex)
     finally:
+        # Leave time for the confetti to finish
+        sleep(0.5)
         return RedirectResponse(url='/')
 
 
