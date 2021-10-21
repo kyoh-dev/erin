@@ -1,6 +1,5 @@
 from typing import Union, Coroutine
 from logging import getLogger
-from time import sleep
 from secrets import token_urlsafe
 
 from bleach import clean
@@ -13,6 +12,7 @@ from starlette.responses import RedirectResponse
 from core.constants import APP_PWD
 from core.sessions import put_session
 from db.tasks import add_task_record, complete_task_record, delete_task_record
+from api.utils import collect_assignees
 from api.responses import (
     upcoming_tasks_response,
     tasks_history_response,
@@ -31,9 +31,18 @@ async def home(request: Request) -> Response:
 async def add_task(request: Request) -> Union[Coroutine, Response]:
     form_data = await request.form()
 
+    assignees = [
+        form_data.get('assign-cara'),
+        form_data.get('assign-connor'),
+        form_data.get('assign-melanie'),
+        form_data.get('assign-mitch')
+    ]
+
+    assignees_str = collect_assignees(assignees)
+
     try:
         add_task_record(
-            clean(form_data.get('assignee')),
+            assignees_str,
             clean(form_data.get('task')),
             clean(form_data.get('due-date')),
         )

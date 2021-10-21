@@ -17,10 +17,10 @@ def get_upcoming_tasks() -> list[tuple]:
                   id,
                   to_char(due_date::date, 'dd/mm'),
                   description,
-                  assignee
+                  assignees
                 FROM public.task
                 WHERE completed = false
-                ORDER BY due_date DESC, description;
+                ORDER BY due_date, description;
             """,
                 (today,),
             )
@@ -40,7 +40,7 @@ def get_tasks_history() -> list[tuple]:
                 SELECT
                   to_char(due_date::date, 'dd/mm/yy'),
                   description,
-                  assignee
+                  assignees
                 FROM public.task
                 WHERE completed = true
                 ORDER BY due_date DESC, description;
@@ -54,16 +54,16 @@ def get_tasks_history() -> list[tuple]:
     return tasks
 
 
-def add_task_record(assignee: str, description: str, due_date: str) -> None:
+def add_task_record(assignees: str, description: str, due_date: str) -> None:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO public.task (assignee, description, due_date)
+                INSERT INTO public.task (assignees, description, due_date)
                 VALUES (%s, %s, %s);
             """,
-                (assignee, description, due_date),
+                (assignees, description, due_date),
             )
 
             conn.commit()

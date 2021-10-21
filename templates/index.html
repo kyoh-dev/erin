@@ -73,16 +73,24 @@
                         <label for="add-task">Task</label>
                         <textarea placeholder="Clean the..." name="task" id="add-task"></textarea>
                     </div>
-                    <div class="modal-form-section">
-                        <label for="add-assignee">Assignee</label>
-                        <select name="assignee" id="add-assignee">
-                            <option style="display:none">
-                            <option>Cara</option>
-                            <option>Connor</option>
-                            <option>Melanie</option>
-                            <option>Mitch</option>
-                            <option>Everyone</option>
-                        </select>
+                    <label>Assignees</label>
+                    <div class="modal-form-section checkbox-group">
+                        <label for="assign-cara">
+                            <input type="checkbox" id="assign-cara" name="assign-cara" value="Cara">
+                            <span class="checkable">Cara</span>
+                        </label>
+                        <label for="assign-connor">
+                            <input type="checkbox" id="assign-connor" name="assign-connor" value="Connor">
+                            <span class="checkable">Connor</span>
+                        </label>
+                        <label for="assign-melanie">
+                            <input type="checkbox" id="assign-melanie" name="assign-melanie" value="Melanie">
+                            <span class="checkable">Melanie</span>
+                        </label>
+                        <label for="assign-mitch">
+                            <input type="checkbox" id="assign-mitch" name="assign-mitch" value="Mitch">
+                            <span class="checkable">Mitch</span>
+                        </label>
                     </div>
                     <div class="modal-footer">
                         <label for="add-task-modal" class="button dangerous">
