@@ -10,7 +10,7 @@ from starlette.responses import Response
 from starlette.responses import RedirectResponse
 
 from core.constants import APP_PWD
-from core.sessions import put_session
+from core.sessions import create_session
 from db.tasks import add_task_record, complete_task_record, delete_task_record
 from api.utils import collect_assignees
 from api.responses import (
@@ -81,20 +81,19 @@ async def history(request: Request) -> Response:
 
 
 async def login(request: Request) -> Response:
-    if request.method == 'GET':
-        return await login_response(request)
+    return await login_response(request)
 
-    if request.method == 'POST':
-        form_data = await request.form()
-        input_pwd = clean(form_data.get('password'))
 
-        if not pwd_context.verify(input_pwd, APP_PWD):
-            return await login_response(
-                request, error="Invalid credentials, please try again."
-            )
+async def auth(request: Request) -> Response:
+    form_data = await request.form()
+    input_pwd = clean(form_data.get('password'))
 
-        session_key = token_urlsafe(32)
-        put_session(session_key, request.client.host)
-        request.session['key'] = session_key
+    if not pwd_context.verify(input_pwd, APP_PWD):
+        return await login_response(
+            request, error="Invalid credentials, please try again."
+        )
 
-        return RedirectResponse(url='/')
+    request.session['key'] = create_session(token_urlsafe(32), request.client.host)
+
+    return RedirectResponse(url='/')
+

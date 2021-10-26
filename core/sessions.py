@@ -8,11 +8,13 @@ from core.constants import SESSIONS
 logger = getLogger(__name__)
 
 
-def put_session(session_key: str, client_ip: str) -> None:
+def create_session(session_key: str, client_ip: str) -> str:
     SESSIONS[session_key] = {
         "client_ip": client_ip,
         "expires": datetime.now(utc) + timedelta(minutes=15),
     }
+
+    return session_key
 
 
 def clear_expired_sessions() -> None:

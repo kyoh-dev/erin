@@ -23,6 +23,7 @@ async def upcoming_tasks_response(request: Request):
     clear_expired_sessions()
 
     client_session_key = request.session.get('key')
+
     if not client_session_key:
         return RedirectResponse(url='/login')
 
