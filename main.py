@@ -22,7 +22,7 @@ routes = [
 ]
 
 middleware = [
-    #Middleware(HTTPSRedirectMiddleware),
+    Middleware(HTTPSRedirectMiddleware),
     Middleware(
         SessionMiddleware, secret_key=APP_SECRET_KEY, max_age=600, https_only=True
     ),

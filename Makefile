@@ -8,7 +8,7 @@ start: $(ENV_FILE)
 clean: $(ENV_FILE)
 	@docker-compose down --volumes --rmi all
 
-server:
+local:
 	@python -m uvicorn main:app --reload
 
 $(ENV_FILE):

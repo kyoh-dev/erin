@@ -2,7 +2,8 @@
 
 > Errand -> Erran -> Erin
 
-A small web app to help housemates manage shared errands and chores, built with [Starlette](https://www.starlette.io/).
+A small web app to help housemates manage shared errands and chores, built entirely
+with [Starlette](https://www.starlette.io/) and Jinja2 templates.
 
 ### Local setup
 Check the Makefile for a list of helpful commands, and .env.example to
