@@ -1,7 +1,7 @@
 from logging import getLogger
 
 from starlette.requests import Request
-from starlette.responses import RedirectResponse
+from starlette.responses import Response, RedirectResponse
 from starlette.templating import Jinja2Templates
 
 from core.constants import SESSIONS
@@ -12,14 +12,14 @@ logger = getLogger(__name__)
 templates = Jinja2Templates(directory='templates')
 
 
-async def login_response(request: Request, warning: str = None, error: str = None):
+async def login_response(request: Request, warning: str = None, error: str = None) -> Response:
     await request.send_push_promise('/static')
     return templates.TemplateResponse(
         'login.html', {'request': request, 'warning': warning, 'error': error}
     )
 
 
-async def upcoming_tasks_response(request: Request):
+async def upcoming_tasks_response(request: Request) -> Response:
     clear_expired_sessions()
 
     client_session_key = request.session.get('key')
@@ -44,7 +44,7 @@ async def upcoming_tasks_response(request: Request):
         )
 
 
-async def celebrate_response(request: Request):
+async def celebrate_response(request: Request) -> Response:
     clear_expired_sessions()
 
     client_session_key = request.session.get('key')
@@ -68,7 +68,7 @@ async def celebrate_response(request: Request):
         )
 
 
-async def tasks_history_response(request: Request):
+async def tasks_history_response(request: Request) -> Response:
     clear_expired_sessions()
 
     client_session_key = request.session.get('key')

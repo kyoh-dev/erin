@@ -175,6 +175,19 @@ footer.completed-modal-footer {
     padding: .5em !important;
 }
 
+.label.error.not-found {
+    margin-left: 0;
+    font-size: .8em;
+}
+
+.error-heading {
+    margin-top: 1em;
+}
+
+.not-found-text {
+    padding-top: .2em;
+}
+
 /* Mobile specific */
 @media all and (max-width: 600px) {
     .site-body {

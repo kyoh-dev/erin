@@ -6,8 +6,8 @@ from bleach import clean
 from passlib.context import CryptContext
 from psycopg2 import DatabaseError
 from starlette.requests import Request
-from starlette.responses import Response
-from starlette.responses import RedirectResponse
+from starlette.responses import Response, RedirectResponse
+from starlette.exceptions import HTTPException
 
 from core.constants import APP_PWD
 from core.sessions import create_session
@@ -47,11 +47,12 @@ async def add_task(request: Request) -> Union[Coroutine, Response]:
         add_task_record(new_task)
     except DatabaseError as ex:
         logger.exception(ex)
-    finally:
-        return RedirectResponse(url='/')
+        raise HTTPException(status_code=500)
+
+    return RedirectResponse(url='/')
 
 
-async def complete_task(request: Request):
+async def complete_task(request: Request) -> Response:
     form_data = await request.form()
     task_id = form_data.get('complete-task-id')
 
@@ -59,8 +60,9 @@ async def complete_task(request: Request):
         complete_task_record(task_id)
     except (TypeError, DatabaseError) as ex:
         logger.exception(ex)
-    finally:
-        return await celebrate_response(request)
+        raise HTTPException(status_code=500)
+
+    return await celebrate_response(request)
 
 
 async def delete_task(request: Request) -> Union[Coroutine, Response]:
@@ -71,8 +73,9 @@ async def delete_task(request: Request) -> Union[Coroutine, Response]:
         delete_task_record(task_id)
     except (TypeError, DatabaseError) as ex:
         logger.exception(ex)
-    finally:
-        return RedirectResponse(url='/')
+        raise HTTPException(status_code=500)
+
+    return RedirectResponse(url='/')
 
 
 async def history(request: Request) -> Response:
@@ -95,4 +98,3 @@ async def auth(request: Request) -> Response:
     request.session['key'] = create_session(token_urlsafe(32), request.client.host)
 
     return RedirectResponse(url='/')
-
