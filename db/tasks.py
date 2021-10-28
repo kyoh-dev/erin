@@ -9,13 +9,18 @@ today = datetime.today().strftime("%Y-%m-%d")
 
 
 @dataclass
-class NewTask:
+class Task:
     assignees: str
     description: str
     due_date: str
 
 
-def get_upcoming_tasks() -> list[tuple]:
+@dataclass
+class IDTask(Task):
+    id: int
+
+
+def get_upcoming_tasks() -> list[IDTask]:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
@@ -23,42 +28,61 @@ def get_upcoming_tasks() -> list[tuple]:
                 """
                 SELECT
                   id,
-                  to_char(due_date::date, 'dd/mm'),
+                  assignees,
                   description,
-                  assignees
+                  to_char(due_date::date, 'dd/mm')
                 FROM public.task
                 WHERE completed = false
                 ORDER BY due_date, description;
             """
             )
 
-            tasks = cursor.fetchall()
+            records = cursor.fetchall()
+
+    tasks = [
+        IDTask(
+            id=record[0],
+            assignees=record[1],
+            description=record[2],
+            due_date=record[3]
+        )
+        for record in records
+    ]
 
     return tasks
 
 
-def get_tasks_history() -> list[tuple]:
+def get_tasks_history() -> list[Task]:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(
                 """
                 SELECT
-                  to_char(due_date::date, 'dd/mm/yy'),
+                  assignees,
                   description,
-                  assignees
+                  to_char(due_date::date, 'dd/mm/yy')
                 FROM public.task
                 WHERE completed = true
                 ORDER BY due_date DESC, description;
             """
             )
 
-            tasks = cursor.fetchall()
+            records = cursor.fetchall()
+
+    tasks = [
+        Task(
+            assignees=record[0],
+            description=record[1],
+            due_date=record[2]
+        )
+        for record in records
+    ]
 
     return tasks
 
 
-def add_task_record(task: NewTask) -> None:
+def add_task_record(task: Task) -> None:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:

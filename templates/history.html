@@ -14,15 +14,15 @@
             <tr>
                 <th class="column-date">Date</th>
                 <th>Task</th>
-                <th class="column-assignee">Assignee</th>
+                <th class="column-assignees">Assignee</th>
             </tr>
         </thead>
         <tbody>
         {% for task in tasks %}
             <tr>
-                <td>{{ task[0] }}</td>
-                <td>{{ task[1] }}</td>
-                <td>{{ task[2] }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.assignees }}</td>
             </tr>
         {% endfor %}
         </tbody>

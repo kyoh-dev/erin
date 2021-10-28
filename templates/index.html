@@ -16,7 +16,7 @@
                 <th class="column-done"></th>
                 <th class="column-date">Date</th>
                 <th class="column-task">Task</th>
-                <th class="column-assignee">Assignee</th>
+                <th class="column-assignees">Assignees</th>
                 <th class="column-delete"></th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
             <tr>
                 <td>
                     <form action="/completed" method="post">
-                        <button class="button btn-done btn-table" id="complete-task-btn" name="complete-task-id" value="{{ task[0] }}" title="Complete task">
+                        <button class="button btn-done btn-table" id="complete-task-btn" name="complete-task-id" value="{{ task.id }}" title="Complete task">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#343A40" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M5 12l5 5l10 -10" />
@@ -33,16 +33,16 @@
                         </button>
                     </form>
                 </td>
-                <td>{{ task[1] }}</td>
-                <td class="cell-task">{{ task[2] }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>{{ task.description }}</td>
                 <td>
-                    {% if task[3] is not none %}
-                    {{ task[3] }}
+                    {% if task.assignees is not none %}
+                    {{ task.assignees }}
                     {% endif %}
                 </td>
                 <td>
                     <form action="/delete-task" method="post">
-                        <button class="button btn-delete btn-table" name="delete-task-id" value="{{ task[0] }}" title="Delete task">
+                        <button class="button btn-delete btn-table" name="delete-task-id" value="{{ task.id }}" title="Delete task">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <line x1="18" y1="6" x2="6" y2="18" />
