@@ -27,7 +27,6 @@ def get_upcoming_tasks() -> list[tuple]:
 
             tasks = cursor.fetchall()
 
-    conn.close()
     return tasks
 
 
@@ -50,7 +49,6 @@ def get_tasks_history() -> list[tuple]:
 
             tasks = cursor.fetchall()
 
-    conn.close()
     return tasks
 
 
@@ -65,10 +63,6 @@ def add_task_record(assignees: str, description: str, due_date: str) -> None:
             """,
                 (assignees, description, due_date),
             )
-
-            conn.commit()
-
-    conn.close()
 
 
 def complete_task_record(task_id: int) -> None:
@@ -87,10 +81,6 @@ def complete_task_record(task_id: int) -> None:
                 (task_id,),
             )
 
-            conn.commit()
-
-    conn.close()
-
 
 def delete_task_record(task_id: int) -> None:
     if task_id is None:
@@ -106,7 +96,3 @@ def delete_task_record(task_id: int) -> None:
             """,
                 (task_id,),
             )
-
-            conn.commit()
-
-    conn.close()

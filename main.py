@@ -11,7 +11,7 @@ from api.routes import home, add_task, complete_task, delete_task, history, logi
 routes = [
     Route('/', endpoint=home, methods=['GET', 'POST']),
     Route('/add-task', endpoint=add_task, methods=['POST']),
-    Route('/complete-task', endpoint=complete_task, methods=['POST']),
+    Route('/completed', endpoint=complete_task, methods=['POST']),
     Route('/delete-task', endpoint=delete_task, methods=['POST']),
     Route('/history', endpoint=history),
     Route('/login', endpoint=login, methods=['GET']),

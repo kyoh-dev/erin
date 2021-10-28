@@ -36,7 +36,7 @@ async def upcoming_tasks_response(request: Request):
         tasks = get_upcoming_tasks()
         await request.send_push_promise('/static')
         return templates.TemplateResponse(
-            'index.html', {'request': request, 'tasks': tasks}
+            'index.html', {'request': request, 'tasks': tasks, 'celebrate': False}
         )
     else:
         return await login_response(
@@ -60,7 +60,7 @@ async def celebrate_response(request: Request):
         tasks = get_upcoming_tasks()
         await request.send_push_promise('/static')
         return templates.TemplateResponse(
-            'celebrate.html', {'request': request, 'tasks': tasks}
+            'index.html', {'request': request, 'tasks': tasks, 'celebrate': True}
         )
     else:
         return await login_response(

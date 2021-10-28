@@ -24,8 +24,8 @@
         {% for task in tasks %}
             <tr>
                 <td>
-                    <form action="/complete-task" method="post">
-                        <button class="button btn-done btn-table" id="complete-task-btn" onclick="celebrate()" name="complete-task-id" value="{{ task[0] }}" title="Complete task">
+                    <form action="/completed" method="post">
+                        <button class="button btn-done btn-table" id="complete-task-btn" name="complete-task-id" value="{{ task[0] }}" title="Complete task">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#343A40" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M5 12l5 5l10 -10" />
@@ -103,4 +103,7 @@
         </article>
     </div>
 </div>
+{% if celebrate %}
+<script src="/static/celebrate.js"></script>
+{% endif %}
 {% endblock content %}
