@@ -11,7 +11,7 @@ from starlette.responses import RedirectResponse
 
 from core.constants import APP_PWD
 from core.sessions import create_session
-from db.tasks import add_task_record, complete_task_record, delete_task_record
+from db.tasks import NewTask, add_task_record, complete_task_record, delete_task_record
 from api.utils import collect_assignees
 from api.responses import (
     upcoming_tasks_response,
@@ -37,15 +37,14 @@ async def add_task(request: Request) -> Union[Coroutine, Response]:
         form_data.get('assign-melanie'),
         form_data.get('assign-mitch')
     ]
-
-    assignees_str = collect_assignees(assignees)
+    new_task = NewTask(
+        assignees=collect_assignees(assignees),
+        description=clean(form_data.get('task')),
+        due_date=clean(form_data.get('due-date'))
+    )
 
     try:
-        add_task_record(
-            assignees_str,
-            clean(form_data.get('task')),
-            clean(form_data.get('due-date')),
-        )
+        add_task_record(new_task)
     except DatabaseError as ex:
         logger.exception(ex)
     finally:

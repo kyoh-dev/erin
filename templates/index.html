@@ -67,11 +67,11 @@
                 <form class="add-task-form" action="/add-task" method="post">
                     <div class="modal-form-section">
                         <label for="add-due-date">Due date</label>
-                        <input type="date" name="due-date" id="add-due-date">
+                        <input type="date" name="due-date" id="add-due-date" required>
                     </div>
                     <div class="modal-form-section">
                         <label for="add-task">Task</label>
-                        <textarea placeholder="Clean the..." name="task" id="add-task"></textarea>
+                        <textarea placeholder="Clean the..." name="task" id="add-task" required></textarea>
                     </div>
                     <label>Assignees</label>
                     <div class="modal-form-section checkbox-group">

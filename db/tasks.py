@@ -1,10 +1,18 @@
 from logging import getLogger
 from datetime import datetime
+from dataclasses import dataclass
 
 from db.connection import get_connection
 
 logger = getLogger(__name__)
 today = datetime.today().strftime("%Y-%m-%d")
+
+
+@dataclass
+class NewTask:
+    assignees: str
+    description: str
+    due_date: str
 
 
 def get_upcoming_tasks() -> list[tuple]:
@@ -21,8 +29,7 @@ def get_upcoming_tasks() -> list[tuple]:
                 FROM public.task
                 WHERE completed = false
                 ORDER BY due_date, description;
-            """,
-                (today,),
+            """
             )
 
             tasks = cursor.fetchall()
@@ -43,8 +50,7 @@ def get_tasks_history() -> list[tuple]:
                 FROM public.task
                 WHERE completed = true
                 ORDER BY due_date DESC, description;
-            """,
-                (today,),
+            """
             )
 
             tasks = cursor.fetchall()
@@ -52,7 +58,7 @@ def get_tasks_history() -> list[tuple]:
     return tasks
 
 
-def add_task_record(assignees: str, description: str, due_date: str) -> None:
+def add_task_record(task: NewTask) -> None:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
@@ -61,7 +67,7 @@ def add_task_record(assignees: str, description: str, due_date: str) -> None:
                 INSERT INTO public.task (assignees, description, due_date)
                 VALUES (%s, %s, %s);
             """,
-                (assignees, description, due_date),
+                (task.assignees, task.description, task.due_date),
             )
 
 
