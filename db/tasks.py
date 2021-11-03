@@ -13,14 +13,10 @@ class Task:
     assignees: str
     description: str
     due_date: str
+    id: int = 0
 
 
-@dataclass
-class IDTask(Task):
-    id: int
-
-
-def get_upcoming_tasks() -> list[IDTask]:
+def get_upcoming_tasks() -> list[Task]:
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
@@ -40,7 +36,7 @@ def get_upcoming_tasks() -> list[IDTask]:
             records = cursor.fetchall()
 
     tasks = [
-        IDTask(
+        Task(
             id=record[0],
             assignees=record[1],
             description=record[2],
