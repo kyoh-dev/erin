@@ -26,11 +26,11 @@ def get_upcoming_tasks() -> list[Task]:
                   id,
                   assignees,
                   description,
-                  to_char(due_date::date, 'dd/mm')
+                  to_char(due_date::date, %s)
                 FROM public.task
-                WHERE completed = false
+                WHERE completed = %s
                 ORDER BY due_date, description;
-            """
+            """, ('dd/mm', False)
             )
 
             records = cursor.fetchall()
@@ -57,11 +57,11 @@ def get_tasks_history() -> list[Task]:
                 SELECT
                   assignees,
                   description,
-                  to_char(due_date::date, 'dd/mm/yy')
+                  to_char(due_date::date, %s)
                 FROM public.task
-                WHERE completed = true
+                WHERE completed = %s
                 ORDER BY due_date DESC, description;
-            """
+            """, ('dd/mm/yy', True)
             )
 
             records = cursor.fetchall()
@@ -93,7 +93,7 @@ def add_task_record(task: Task) -> None:
 
 def complete_task_record(task_id: int) -> None:
     if task_id is None:
-        raise TypeError("No task_id to complete.")
+        raise ValueError("No task_id to complete.")
 
     conn = get_connection()
     with conn:
@@ -101,16 +101,16 @@ def complete_task_record(task_id: int) -> None:
             cursor.execute(
                 """
                 UPDATE public.task
-                SET completed = true
+                SET completed = %s
                 WHERE id = %s;
             """,
-                (task_id,),
+                (True, task_id),
             )
 
 
 def delete_task_record(task_id: int) -> None:
     if task_id is None:
-        raise TypeError("No task_id to delete.")
+        raise ValueError("No task_id to delete.")
 
     conn = get_connection()
     with conn:

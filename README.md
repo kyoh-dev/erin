@@ -3,14 +3,4 @@
 > Errand -> Erran -> Erin
 
 A small web app to help housemates manage shared errands and chores, built entirely
-with [Starlette](https://www.starlette.io/) and Jinja2 templates.
-
-### Local setup
-Check the Makefile for a list of helpful commands, and .env.example to
-see the required environment variables.
-
-**NB**: You may need to comment out the HTTPSRedirect middleware to get 
-everything working locally.
-
-#### TODO:
-- [ ] Add table for assignees, remove hardcoding
+with [Starlette](https://www.starlette.io/) and Jinja2 templates and deployed on fly.io using Docker.
